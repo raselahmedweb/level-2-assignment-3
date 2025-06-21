@@ -19,9 +19,15 @@ Clone the Repository
 npm install
 ```
 
-Create .env file and add your MongoDB driver url as mongodbUrl=......
+### Create .env file and add your MongoDB driver url as mongodbUrl=......
 
-Run the Application
+.env
+
+```bash
+mongodbUrl=""
+```
+
+### Run the Application
 
 ```bash
 npm run dev
@@ -35,23 +41,29 @@ Use tools like Postman or Thunder to test the API endpoints.
 
 ## API Endpoints
 
-POST request to /api/books to create a bbok.
+- **GET** `/api/books`
+- **POST** `/api/books`
+- **PATCH** `/api/books/:bookId`
+- **DELETE** `/api/books/:bookId`
+- **GET** `/api/borrow`
+- **POST** `/api/borrow`
 
 Create a new book.
 
 ```json
 {
-    "title": "The Theory of Everything",
-    "author": "Stephen Hawking",
-    "genre": "SCIENCE",
-    "isbn": "9780553380163",
-    "description": "An overview of cosmology and black holes.",
-    "copies": 5,
-    "available": true
+  "title": "The Theory of Everything",
+  "author": "Stephen Hawking",
+  "genre": "SCIENCE",
+  "isbn": "9780553380163",
+  "description": "An overview of cosmology and black holes.",
+  "copies": 5,
+  "available": true
 }
 ```
 
 Response
+
 ```json
 {
   "success": true,
@@ -70,3 +82,11 @@ Response
   }
 }
 ```
+
+## Explaination video link
+
+[Click to view the video](https://drive.google.com/file/d/1iiJ02gEEuQsjEpSjq0YG25dFFOtfKr-u/view?usp=sharing)
+
+## Deployment link
+
+[Live deployment link](https://level-2-assignment-3-rouge.vercel.app)

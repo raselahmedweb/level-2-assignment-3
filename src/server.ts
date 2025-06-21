@@ -10,7 +10,7 @@ const PORT = 5000;
 
 async function main() {
   try {
-    await mongoose.connect(mongodbUrl);
+    await mongoose.connect(mongodbUrl,);
     console.log("Mongodb database connected");
     server = app.listen(PORT, async () => {
       console.log(`Server is running at http://localhost:${PORT}`);

@@ -15,7 +15,7 @@ const bookSchema = new Schema<IBook, Model<IBook>, BookInstanceMethods>(
         "BIOGRAPHY",
         "FANTASY",
       ],
-      required: true
+      required: true,
     },
     isbn: {
       type: String,
@@ -39,18 +39,17 @@ const bookSchema = new Schema<IBook, Model<IBook>, BookInstanceMethods>(
   }
 );
 
-bookSchema.pre('save', function (next) {
+bookSchema.pre("save", function () {
   this.available = this.copies > 0;
-  next();
 });
 
-bookSchema.post('save', function (doc) {
+bookSchema.post("save", function (doc) {
   console.log(`Book ${doc.title} was created successfully.`);
 });
 
-bookSchema.method("updateAvailability", async function() {
+bookSchema.method("updateAvailability", async function () {
   this.available = this.copies > 0;
   await this.save();
-})
+});
 
 export const Book = model("Books", bookSchema);

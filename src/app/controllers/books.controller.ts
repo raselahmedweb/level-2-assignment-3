@@ -23,7 +23,7 @@ export const createBook = async (req: Request, res: Response): Promise<any> => {
     });
   } catch (error: any) {
     //got help from internet to make this generic error response
-    if (error.name === 'ValidationError') {
+    if (error.name === "ValidationError") {
       // Mongoose validation error
       const errors: { [key: string]: any } = {};
       for (const field in error.errors) {
@@ -40,7 +40,8 @@ export const createBook = async (req: Request, res: Response): Promise<any> => {
         }
       }
 
-      res.status(400).json({ // Use 400 for bad request (validation errors)
+      res.status(400).json({
+        // Use 400 for bad request (validation errors)
         message: "Validation failed",
         success: false,
         error: {
@@ -54,7 +55,7 @@ export const createBook = async (req: Request, res: Response): Promise<any> => {
         success: false,
         error: {
           message: error.message,
-          name: error.name
+          name: error.name,
         },
       });
     }
@@ -86,7 +87,6 @@ export const getAllBook = async (req: Request, res: Response): Promise<any> => {
     if (books.length === 0) {
       throw new Error("Books not available");
     }
-    
 
     res.status(200).json({
       success: true,
@@ -190,23 +190,23 @@ export const deleteBookById = async (
 };
 
 //! deleting all
-export const deleteAllBook = async (
-  req: Request,
-  res: Response
-): Promise<any> => {
-  try {
-    const deleteBooks = await Book.deleteMany();
+// export const deleteAllBook = async (
+//   req: Request,
+//   res: Response
+// ): Promise<any> => {
+//   try {
+//     const deleteBooks = await Book.deleteMany();
 
-    res.status(200).json({
-      success: true,
-      message: "All Books deleted successfully",
-      data: deleteBooks,
-    });
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: "Books deletetion failed",
-      error,
-    });
-  }
-};
+//     res.status(200).json({
+//       success: true,
+//       message: "All Books deleted successfully",
+//       data: deleteBooks,
+//     });
+//   } catch (error) {
+//     res.status(400).json({
+//       success: false,
+//       message: "Books deletetion failed",
+//       error,
+//     });
+//   }
+// };
