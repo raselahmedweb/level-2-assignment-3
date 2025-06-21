@@ -11,7 +11,7 @@ This is a Library Management System API built with Express, TypeScript, and Mong
 - Error Handling
 - Mongoose Middleware
 
-  **Installation**:
+## Installation:
 
 Clone the Repository
 
@@ -19,7 +19,7 @@ Clone the Repository
 npm install
 ```
 
-### Create .env file and add your MongoDB driver url as mongodbUrl=......
+## Create .env file and add your MongoDB driver url as mongodbUrl=......
 
 .env
 
@@ -27,7 +27,7 @@ npm install
 mongodbUrl=""
 ```
 
-### Run the Application
+## Run the Application
 
 ```bash
 npm run dev
@@ -35,7 +35,7 @@ npm run dev
 
 The server will run on `http://localhost:5000`.
 
-**Test the API**:
+## Test the API:
 
 Use tools like Postman or Thunder to test the API endpoints.
 
@@ -48,7 +48,7 @@ Use tools like Postman or Thunder to test the API endpoints.
 - **GET** `/api/borrow`
 - **POST** `/api/borrow`
 
-Create a new book.
+## Create a new book.
 
 ```json
 {
