@@ -24,7 +24,7 @@ npm install
 .env
 
 ```bash
-mongodbUrl=""
+mongodbUrl="your mongodb url in here"
 ```
 
 ## Run the Application
