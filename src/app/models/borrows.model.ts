@@ -11,7 +11,7 @@ const borrowSchema = new Schema<IBorrow>(
     quantity: {
       type: Number,
       required: true,
-      min: [0, "Copies cannot be negative"],
+      min: [0, "Quantity cannot be negative"],
     },
     dueDate: { type: Date, required: true },
   },

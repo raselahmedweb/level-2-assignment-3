@@ -1,7 +1,7 @@
-import { model, Schema } from "mongoose";
-import { IBook } from "../interfaces/books.interface";
+import { Model, model, Schema } from "mongoose";
+import { BookInstanceMethods, IBook } from "../interfaces/books.interface";
 
-const bookSchema = new Schema<IBook>(
+const bookSchema = new Schema<IBook, Model<IBook>, BookInstanceMethods>(
   {
     title: { type: String, required: true, trim: true },
     author: { type: String, required: true, trim: true },
@@ -26,7 +26,7 @@ const bookSchema = new Schema<IBook>(
     copies: {
       type: Number,
       required: true,
-      min: [0, "Copies cannot be negative"],
+      min: [0, "Copies must be a positive number"],
     },
     available: {
       type: Boolean,
@@ -39,4 +39,18 @@ const bookSchema = new Schema<IBook>(
   }
 );
 
-export const Book = model<IBook>("Books", bookSchema);
+bookSchema.pre('save', function (next) {
+  this.available = this.copies > 0;
+  next();
+});
+
+bookSchema.post('save', function (doc) {
+  console.log(`Book ${doc.title} was created successfully.`);
+});
+
+bookSchema.method("updateAvailability", async function() {
+  this.available = this.copies > 0;
+  await this.save();
+})
+
+export const Book = model("Books", bookSchema);
