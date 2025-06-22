@@ -69,7 +69,23 @@ export const getAllBook = async (req: Request, res: Response): Promise<any> => {
 
     if (filter) {
       books = await Book.find({
-        genre: filter,
+        $or: [
+          {
+            genre: filter,
+          },
+          {
+            title: filter
+          },
+          {
+            description: filter
+          },
+          {
+            author: filter
+          },
+          {
+            isbn: filter
+          }
+        ],
       })
         .sort({ [sortBy as string]: sort === "desc" ? "desc" : "asc" })
         .skip(skip ? parseInt(skip as string) : 0)
