@@ -84,10 +84,6 @@ export const getAllBook = async (req: Request, res: Response): Promise<any> => {
         .limit(limit ? parseInt(limit as string) : 0);
     }
 
-    if (books.length === 0) {
-      throw new Error("Books not available");
-    }
-
     res.status(200).json({
       success: true,
       message: "Books retrieved successfully",
