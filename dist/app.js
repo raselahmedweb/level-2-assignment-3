@@ -11,7 +11,11 @@ app.use(express_1.default.json());
 app.use("/api", books_route_1.booksRoutes);
 app.use("/api", borrows_route_1.borrowsRoutes);
 app.get('/', (req, res) => {
-    res.send('Library Management API');
+    res.status(200).json({
+        message: "Welcome to Library management API",
+        success: true,
+        info: "Visit README file for documentation https://github.com/raselahmedweb/level-2-assignment-3/blob/main/README.md"
+    });
 });
 // 404 route
 app.use((req, res) => {

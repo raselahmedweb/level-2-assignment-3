@@ -78,7 +78,23 @@ const getAllBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         let books = [];
         if (filter) {
             books = yield books_model_1.Book.find({
-                genre: filter,
+                $or: [
+                    {
+                        genre: filter,
+                    },
+                    {
+                        title: filter
+                    },
+                    {
+                        description: filter
+                    },
+                    {
+                        author: filter
+                    },
+                    {
+                        isbn: filter
+                    }
+                ],
             })
                 .sort({ [sortBy]: sort === "desc" ? "desc" : "asc" })
                 .skip(skip ? parseInt(skip) : 0)
@@ -92,9 +108,6 @@ const getAllBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 .sort({ [sortBy]: sort === "desc" ? "desc" : "asc" })
                 .skip(skip ? parseInt(skip) : 0)
                 .limit(limit ? parseInt(limit) : 0);
-        }
-        if (books.length === 0) {
-            throw new Error("Books not available");
         }
         res.status(200).json({
             success: true,

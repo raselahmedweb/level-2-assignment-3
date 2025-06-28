@@ -12,7 +12,7 @@ export const booksRoutes = express.Router();
 booksRoutes.post("/books", createBook);
 booksRoutes.get("/books", getAllBook);
 booksRoutes.get("/books/:bookId", getBookById);
-booksRoutes.patch("/books/:bookId", updateBookById);
+booksRoutes.put("/books/:bookId", updateBookById);
 booksRoutes.delete("/books/:bookId", deleteBookById);
 
 //! Delete router only usable in development mode for make life easier😊
