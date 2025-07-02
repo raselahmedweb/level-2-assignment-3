@@ -28,6 +28,7 @@ const bookSchema = new Schema<IBook, Model<IBook>, BookInstanceMethods>(
       required: true,
       min: [0, "Copies must be a positive number"],
     },
+    imageUrl: { type: String },
     available: {
       type: Boolean,
       default: true,

@@ -74,17 +74,17 @@ export const getAllBook = async (req: Request, res: Response): Promise<any> => {
             genre: filter,
           },
           {
-            title: filter
+            title: filter,
           },
           {
-            description: filter
+            description: filter,
           },
           {
-            author: filter
+            author: filter,
           },
           {
-            isbn: filter
-          }
+            isbn: filter,
+          },
         ],
       })
         .sort({ [sortBy as string]: sort === "desc" ? "desc" : "asc" })
