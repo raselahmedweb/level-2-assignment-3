@@ -7,14 +7,16 @@ const CreateBookZodSchema = z.object({
   author: z.string(),
   genre: z.string(),
   isbn: z.string(),
-  description: z.string().optional(),
+  description: z.string(),
   copies: z.number(),
+  imageUrl: z.string().optional(),
   available: z.boolean(),
 });
 
 export const createBook = async (req: Request, res: Response): Promise<any> => {
   try {
-    const body = await CreateBookZodSchema.parseAsync(req.body);
+    const body = req.body;
+    console.log(body);
     const book = await Book.create(body);
     res.status(201).json({
       success: true,
