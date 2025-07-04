@@ -16,7 +16,6 @@ const CreateBookZodSchema = z.object({
 export const createBook = async (req: Request, res: Response): Promise<any> => {
   try {
     const body = req.body;
-    console.log(body);
     const book = await Book.create(body);
     res.status(201).json({
       success: true,
@@ -24,6 +23,38 @@ export const createBook = async (req: Request, res: Response): Promise<any> => {
       data: book,
     });
   } catch (error: any) {
+    if (error.code === 11000) {
+      const field = Object.keys(error.keyValue)[0];
+      const value = error.keyValue[field];
+
+      const errors: { [key: string]: any } = {};
+      errors[field] = {
+        message: `${
+          field === "isbn" ? "ISBN" : field
+        } '${value}' already exists`,
+        name: "DuplicateError",
+        properties: {
+          message: `${
+            field === "isbn" ? "ISBN" : field
+          } '${value}' already exists`,
+          type: "unique",
+          path: field,
+          value: value,
+        },
+        kind: "unique",
+        path: field,
+        value: value,
+      };
+
+      return res.status(409).json({
+        message: "Duplicate value error",
+        success: false,
+        error: {
+          name: "DuplicateError",
+          errors: errors,
+        },
+      });
+    }
     //got help from internet to make this generic error response
     if (error.name === "ValidationError") {
       // Mongoose validation error
@@ -68,7 +99,7 @@ export const getAllBook = async (req: Request, res: Response): Promise<any> => {
   try {
     const { filter, sortBy, sort, limit, skip } = req.query;
     let books: any = [];
-
+    const totalBooks = await Book.countDocuments();
     if (filter) {
       books = await Book.find({
         $or: [
@@ -97,7 +128,6 @@ export const getAllBook = async (req: Request, res: Response): Promise<any> => {
       }
     } else {
       books = await Book.find()
-        .sort({ [sortBy as string]: sort === "desc" ? "desc" : "asc" })
         .skip(skip ? parseInt(skip as string) : 0)
         .limit(limit ? parseInt(limit as string) : 0);
     }
@@ -106,6 +136,7 @@ export const getAllBook = async (req: Request, res: Response): Promise<any> => {
       success: true,
       message: "Books retrieved successfully",
       data: books,
+      totalBooks,
     });
   } catch (error: any) {
     res.status(400).json({

@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 import { config } from "./app/config/configure";
 
 let server: Server;
-
 const { mongodbUrl } = config;
 const PORT = 5000;
 
