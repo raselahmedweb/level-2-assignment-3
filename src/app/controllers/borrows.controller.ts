@@ -45,34 +45,34 @@ export const borrowBook = async (req: Request, res: Response): Promise<any> => {
   }
 };
 
-
 //
 export const getBorrowedBooksSummary = async (req: Request, res: Response) => {
   try {
     const summary = await Borrow.aggregate([
       {
         $group: {
-          _id: '$book',
-          totalQuantity: { $sum: '$quantity' },
+          _id: "$book",
+          totalQuantity: { $sum: "$quantity" },
         },
       },
       {
         $lookup: {
-          from: 'books',
-          localField: '_id',
-          foreignField: '_id',
-          as: 'bookDetails',
+          from: "books",
+          localField: "_id",
+          foreignField: "_id",
+          as: "bookDetails",
         },
       },
       {
-        $unwind: '$bookDetails',
+        $unwind: "$bookDetails",
       },
       {
         $project: {
           _id: 0,
           book: {
-            title: '$bookDetails.title',
-            isbn: '$bookDetails.isbn',
+            id: "$_id",
+            title: "$bookDetails.title",
+            isbn: "$bookDetails.isbn",
           },
           totalQuantity: 1,
         },
@@ -81,13 +81,13 @@ export const getBorrowedBooksSummary = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: 'Borrowed books summary retrieved successfully',
+      message: "Borrowed books summary retrieved successfully",
       data: summary,
     });
   } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: 'Failed to retrieve borrowed books summary',
+      message: "Failed to retrieve borrowed books summary",
       error: error.message,
     });
   }
